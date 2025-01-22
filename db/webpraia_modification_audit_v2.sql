@@ -1,6 +1,6 @@
 create table if not exists "customer_session_aud" (
-    "id" bigint generated always as identity primary key,
-    "role" varchar(150) not null default 'USER',
+    "id" bigint,
+    "role" varchar(150) default 'USER',
     "customer_id" bigint not null,
     "name" varchar(255) not null,
     "refresh_token" text not null,
@@ -14,4 +14,4 @@ create table if not exists "customer_session_aud" (
     "deleted_by" varchar(255) default null,
     "rev" int not null,
     "revtype" smallint null
-);
+); 

@@ -6,7 +6,7 @@ create table if not exists "otp_temporary_code" (
 
 create table if not exists "customer_session" (
     "id" bigint generated always as identity primary key,
-    "role" varchar(150) not null default 'USER',
+    "role" varchar(150) default 'USER',
     "customer_id" bigint not null,
     "name" varchar(255) not null,
     "refresh_token" text not null,
