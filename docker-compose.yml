@@ -1,26 +1,6 @@
 version: '3.8'
 
 services:
-  webpraia-api:
-    build: ../
-    container_name: webpraia-api
-    ports:
-      - "8080:8080"
-    environment:
-      CYPHER_KEY_VALUE: apgOAalUKJOZQwHgXWYT9Q\=\=
-      SCOPE: devdocker
-      SPRING_PROFILES_ACTIVE: devdocker
-      # KEYCLOAK_HOST: http://keycloak-server:8080
-      # KEYCLOAK_REALM: webpraia
-      POSTGRES_URL: postgres:5432
-      POSTGRES_USERNAME: webpraiaadmin
-      POSTGRES_PASSWORD: webpraiaadmin
-    depends_on:
-      - postgres
-      # - keycloak-server
-    networks:
-      - webpraia
-
   postgres:
     build: ./db
     container_name: webpraia_postgres
@@ -32,48 +12,4 @@ services:
       POSTGRES_PASSWORD: webpraiaadmin
     volumes:
       - ./db/volumes/webpraia:/var/lib/postgresql/data
-    networks:
-      - webpraia
-
-  # keycloak-postgres:
-  #   build: ./keycloak/db
-  #   container_name: webpraia_users_database
-  #   ports:
-  #     - "5433:5432"
-  #   environment:
-  #     POSTGRES_DB: webpraia_users_database
-  #     POSTGRES_USER: keycloakadmin
-  #     POSTGRES_PASSWORD: keycloakadmin
-  #   volumes:
-  #     - ./keycloak/db/volumes/webpraia:/var/lib/postgresql/data
-  #   networks:
-  #     - webpraia
-
-  # keycloak-server:
-  #   build: ./keycloak
-  #   container_name: webpraia_keycloak
-  #   environment:
-  #     - KEYCLOAK_ADMIN=webpraia
-  #     - KEYCLOAK_ADMIN_PASSWORD=webpraia
-  #   ports:
-  #     - "8443:8080"
-  #   command:
-  #     - start-dev
-  #   volumes:
-  #     - ./keycloak/:/opt/jboss/keycloak/standalone/data/
-  #   networks:
-  #     - webpraia
-  #   depends_on:
-  #     - keycloak-postgres
-
-  # redis:
-  #   container_name: webpraia_redis
-  #   image: redis:latest
-  #   ports:
-  #     - "6379:6379"
-  #   networks:
-  #     - webpraia
-
-networks:
-  webpraia:
-    driver: bridge
+    user: "${UID}:${GID}"
