@@ -12,4 +12,3 @@ services:
       POSTGRES_PASSWORD: webpraiaadmin
     volumes:
       - ./db/volumes/webpraia:/var/lib/postgresql/data
-    user: "${UID}:${GID}"
